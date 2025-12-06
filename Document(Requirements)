@@ -1,0 +1,1279 @@
+# InsightFlow AI Requirements Document
+
+## 1. Application Overview
+
+### 1.1 Application Name
+InsightFlow AI\n
+### 1.2 Application Description
+InsightFlow AI is an advanced all-in-one platform for Data Analytics, Data Science, SQL, Python, Machine Learning, and Data Modeling designed specifically for students and professionals. The platform enables users to upload unlimited datasets, preview and manage them through an intuitive Table View, perform comprehensive data cleaning with dataset selection capabilities, create advanced visualizations including KPI cards, build interactive dashboards with fully resizable charts, and train machine learning models with intelligent recommendations. A key differentiator is the fully functional SQL Editor and Python Editor where any operation performed on a dataset—such as filtering, updating, deleting rows, adding columns, merging datasets, grouping, or transforming values—directly modifies the actual stored data, ensuring all changes reflect across Visualization, ML Studio, Dashboard, and Reports modules. The Data Modeling module supports joining unlimited tables with visual and SQL-based interfaces. Additionally, users can view video tutorials and demonstrations directly within the platform. The application operates without authentication requirements, allowing immediate access to all features.\n
+## 2. Data Management
+
+### 2.1 Browser-Based Storage
+
+**Data Persistence:**
+- All uploaded datasets stored in browser LocalStorage or IndexedDB
+- Cleaned data versions saved automatically in browser storage
+- Created charts and dashboards saved to browser storage
+- Trained ML models and reports stored in browser workspace
+- User preferences and settings stored in browser\n- SQL queries and Python scripts saved per session
+- Data modeling configurations and join relationships stored locally
+- All SQL and Python operations update the actual stored dataset in browser
+- Video viewing history and bookmarks stored in browser
+
+**Data Management:**
+- View all uploaded datasets in dashboard
+- Delete datasets when no longer needed
+- Access history of data cleaning operations
+- Manage saved charts and dashboards
+- Download or share saved visualizations
+- Organize datasets into project folders
+- Data persists across browser sessions until manually cleared
+
+### 2.2 Project Management & Organization
+
+**Project Folder System:**
+- Create unlimited project folders to organize datasets
+- Rename project folders\n- Move datasets between folders
+- Delete entire project folders (with confirmation)
+- Each project folder contains:\n  - Multiple datasets
+  - Associated visualizations
+  - Dashboards
+  - ML models and reports
+  - SQL queries\n  - Python scripts
+  - Data modeling configurations
+\n**Dataset Management (Unlimited Upload & Full Control):**
+- Upload unlimited datasets per project
+- Preview dataset contents before processing:\n  - View first100 rows of data
+  - Inspect column names, data types, and sample values
+  - Check dataset statistics (row count, column count, missing values)
+- Modify dataset metadata:\n  - Edit dataset name and add description
+  - Add tags for easy searching
+  - Update column names and properties
+- Delete individual datasets with confirmation
+- Duplicate datasets for experimentation
+- View detailed dataset schema information
+- Export datasets in various formats\n
+**New Data Upload Behavior with Workspace Reset Confirmation:**
+- When user attempts to upload new dataset(s) to current working session, system displays confirmation dialog:\n  - Dialog Title: 'Reset Workspace?'
+  - Dialog Message: 'Uploading new dataset(s) will clear all current charts, dashboards, and ML reports. Your current project will be saved and can be accessed from the Previous Projects section on the home page.'
+  - Dialog Options:
+    - 'Save & Continue' button: Saves current project to Previous Projects and proceeds with new upload
+    - 'Cancel' button: Cancels upload and returns to current workspace
+- If user confirms'Save & Continue':
+  - Current project is automatically saved with all charts, dashboards, and ML reports
+  - Saved project appears in Previous Projects section
+  - All current session content is reset:\n    - All existing charts are cleared
+    - All dashboards are cleared
+    - All ML models and reports are cleared
+    - Data cleaning history is cleared
+  - User starts with fresh workspace for new dataset\n- If user cancels, current workspace remains unchanged
+
+**Manual Project Saving Feature:**
+- 'Save Current Project' button available in multiple locations:
+  - Top navigation bar (always visible)
+  - Report tab as dedicated 'Save Your Entire Project' button
+  - Quick action menu in workspace\n- Clicking 'Save Current Project' button:
+  - Prompts user to enter project name (optional, auto-generates if not provided)
+  - Saves complete project snapshot including:
+    - All datasets in current project
+    - All visualizations and charts
+    - All dashboards with layouts and filters
+    - All ML models and performance reports
+    - All SQL queries and Python scripts
+    - Data cleaning history and configurations
+    - Data modeling relationships
+  - Displays success confirmation message
+  - Saved project immediately appears in Previous Projects section
+- Users can save project at any time without uploading new data
+- Multiple save operations create new project versions (not overwrite)
+\n**Previous Projects Section:**
+- Accessible from:\n  - Home page 'Previous Projects' section
+  - Left sidebar navigation item 'Previous Projects' (positioned at end of navigation menu)
+- Project list displays:\n  - Project name
+  - Creation date and last modified date
+  - Number of datasets
+  - Number of visualizations created
+  - Number of dashboards created
+  - Dataset information summary
+  - Project thumbnail preview
+- Click on any previous project to:\n  - View saved visualizations (read-only mode)
+  - View saved dashboards (read-only mode)
+  - View ML reports (read-only mode)
+  - Reopen project for editing and adding new work
+  - Upload additional datasets to existing project
+  - Rename project\n  - **Delete project**: Click delete icon/button on project card
+    - Displays confirmation dialog: 'Are you sure you want to delete this project? This action cannot be undone.'\n    - Options: 'Delete' (permanently removes project from browser storage) or 'Cancel'\n    - Deleted projects are permanently removed from browser storage
+  - Download previous reports and models
+- Search and filter options for finding specific projects
+- Sort projects by date, name, or activity
+\n**Project Isolation:**
+- Each project workspace maintains separate data and configurations
+- All visualizations, dashboards, and ML models are tied to specific project
+- No mixing of data or visualizations between different projects
+- Clear separation between current active project and archived previous projects
+
+## 3. Core Features
+
+### 3.1 Data Upload Module
+
+**Supported File Formats:**
+- CSV files\n- Excel files (xlsx, xls)
+- Excel files with multiple sheets
+- TSV files
+- JSON files\n- Any delimited text files
+\n**Multiple Dataset Upload:**
+- Upload multiple datasets simultaneously in a single upload session
+- Drag-and-drop multiple files at once
+- Browse and select multiple files from file system
+- Upload progress indicator for each file
+- Batch upload confirmation with list of successfully uploaded datasets
+- Option to add more datasets after initial upload without resetting workspace
+
+**Automatic Processing:**
+- Automatic file type detection
+- Automatic column parsing
+- Automatic data type detection (numeric, categorical, date)\n- Display sheet selector for multi-sheet Excel files
+\n**Dataset Preview & Modification:**
+- Preview first 100 rows of uploaded data\n- View column names, data types, and sample values
+- Edit dataset name and add description
+- Add tags for easy searching
+- View dataset statistics (row count, column count, missing values)
+- Modify column properties and metadata
+\n### 3.2 Table View Module
+
+**Purpose:**
+Table View appears immediately after Upload Data in the workflow, allowing users to select any uploaded dataset, preview it comprehensively, and confirm which dataset they want to work on before performing operations in other modules.
+
+**Core Features:**
+- Dataset Selection: Dropdown or list to select from all uploaded datasets in current project
+- Full Data Preview: Display complete dataset with scrollable rows and columns (not limited to first 100 rows)
+- Schema Inspection: View detailed schema information including:\n  - Column names
+  - Data types (integer, float, string, datetime, boolean, etc.)
+  - Null/missing value counts per column
+  - Unique value counts
+  - Sample values for each column
+- Column Management:\n  - Rename columns directly in Table View
+  - Reorder columns by drag-and-drop
+  - Hide/show specific columns
+  - Sort data by any column (ascending/descending)
+- Data Inspection Tools:
+  - Search and filter rows by column values
+  - View data statistics (min, max, mean, median for numeric columns)
+  - Identify data quality issues (duplicates, outliers, inconsistencies)
+- Dataset Confirmation: Confirm selected dataset before proceeding to Data Cleaning, Visualization, or other modules
+- Quick Actions:
+  - Export selected dataset\n  - Duplicate dataset
+  - Delete dataset
+  - Refresh data view
+\n### 3.3 Data Modeling Engine (Multi-Table Join Capabilities)
+
+**Advanced Visual Data Modeling Interface (Inspired by Power BI & Tableau):**
+- **Interactive Canvas with Drag-and-Drop Table Relationship Builder:**
+  - Visual representation of table schemas with expandable column lists
+  - Click'Add Table' or '+ Table' button to add additional datasets to modeling canvas
+  - Select datasets from dropdown list of all uploaded datasets
+  - Drag tables onto canvas and arrange them freely
+  - Visual connection lines between related tables showing join relationships
+  - Color-coded relationship lines indicating join types (Inner/Left/Right/Full/Cross)
+  - Hover over relationship lines to view join details and conditions
+  - Click on relationship lines to edit or delete joins
+  - Zoom in/out and pan across canvas for large data models
+  - Mini-map navigator for quick navigation in complex models
+  - Auto-layout feature to organize tables automatically
+\n- **Smart Relationship Detection:**
+  - Automatic detection of potential join keys based on column names and data types
+  - Suggested relationships highlighted with dotted lines
+  - One-click acceptance of suggested relationships
+  - Warning indicators for ambiguous or missing relationships
+\n- **Visual Join Configuration Panel:**
+  - Side panel displaying join details when relationship is selected
+  - Dropdown selectors for join type (Inner/Left/Right/Full/Cross)\n  - Multi-key join support with '+ Add Join Key' button
+  - Visual preview of join result with sample data rows
+  - Join cardinality indicators (1:1, 1:Many, Many:Many)
+  - Filter conditions applicable before join execution
+\n- **Table Schema Visualization:**
+  - Each table displayed as card with header showing table name and row count
+  - Expandable column list showing:\n    - Column names with data type icons
+    - Primary key indicators
+    - Foreign key indicators
+    - Column data type (text, number, date, boolean)\n  - Search functionality within table columns
+  - Column highlighting when hovering over join relationships
+\n- **Relationship Management:**
+  - Create relationships by dragging from one column to another
+  - Edit existing relationships by clicking on connection lines
+  - Delete relationships with confirmation dialog
+  - Duplicate relationships for similar join patterns
+  - Save modeling configurations as templates for reuse
+
+**Join Any Number of Tables:**
+- Join unlimited tables within a project
+- Supported join types:
+  - INNER JOIN (only matching rows)
+  - LEFT JOIN (all from left + matching from right)
+  - RIGHT JOIN (all from right + matching from left)
+  - FULL OUTER JOIN (everything from both)\n  - CROSS JOIN (all combinations)
+\n**SQL-Based Join Interface:**
+- Write custom SQL JOIN queries\n- Syntax highlighting for SQL code
+- Autocomplete for table and column names
+- Execute and preview join results
+- Save SQL join queries for future use
+- Support for complex multi-table joins
+- Subquery support in join conditions
+
+**Join Configuration Options:**
+- Select multiple join keys\n- Handle duplicate column names automatically
+- Filter data before or after joining
+- Aggregate data during join operations
+- Apply transformations during join process
+\n**Join Result Management:**
+- Preview joined dataset with sample rows before applying\n- Save joined dataset as new dataset in project
+- Export joined dataset in various formats
+- View join execution statistics (rows matched, unmatched, execution time)
+\n**Example Workflow:**
+1. Upload both tables (e.g., orders.csv and customers.csv)
+2. Go to Data Modeling section
+3. Click 'Add Table' or '+ Table' button
+4. Select second dataset from dropdown
+5. Drag tables onto canvas
+6. Drag from orders.customer_id column to customers.id column to create relationship
+7. Select join type (Inner/Left/Right/Full/Cross) from dropdown
+8. Preview joined result in side panel
+9. Apply join to create new combined dataset
+10. Save modeling configuration for future use
+
+### 3.4 SQL Query Editor (Full Functional Programming Environment)
+
+**Advanced Editor Features:**
+- Syntax highlighting for SQL keywords
+- Intelligent autocomplete for:\n  - Table names
+  - Column names
+  - SQL keywords
+  - Functions\n  - Aliases
+- Line numbers and code folding
+- Multi-line query support
+- Error highlighting and validation
+- Query formatting and beautification
+\n**Comprehensive SQL Operations Support:**
+- SELECT, WHERE, GROUP BY, HAVING, ORDER BY\n- Filtering with complex conditions (AND, OR, NOT, IN, BETWEEN, LIKE)\n- Aggregations (SUM, COUNT, AVG, MIN, MAX, STDDEV, VARIANCE)
+- Subqueries and nested queries
+- CASE statements and conditional logic
+- Window functions (ROW_NUMBER, RANK, DENSE_RANK, LAG, LEAD)
+- Column transformations (CAST, CONCAT, SUBSTRING, UPPER, LOWER, TRIM)
+- Date functions (DATE_ADD, DATE_SUB, DATEDIFF, EXTRACT)
+- Schema modifications (ALTER TABLE, ADD COLUMN, DROP COLUMN, RENAME COLUMN)
+- Data manipulation (INSERT, UPDATE, DELETE)\n- JOIN operations (INNER, LEFT, RIGHT, FULL, CROSS)
+- UNION and UNION ALL operations
+\n**Critical Feature: Direct Data Modification**
+- All SQL operations (UPDATE, DELETE, INSERT, ALTER) directly modify the actual stored dataset
+- Changes made in SQL Editor immediately reflect in:\n  - Table View\n  - Data Cleaning module
+  - Visualization Studio
+  - Dashboard
+  - ML Studio
+  - Reports
+- Transaction support with rollback capability for safety
+- Change history tracking for audit purposes
+
+**Query Execution & Results:**
+- Execute button to run queries
+- Query result grid with sortable columns
+- Pagination for large result sets
+- Export query results as CSV or Excel
+- View query execution time and performance metrics
+- Error messages with line numbers for debugging
+- Query history with ability to rerun previous queries
+- Result set filtering and searching
+
+**Query Management:**
+- Save queries with custom names and descriptions
+- Organize queries by project and category
+- Share queries via export\n- Version control for query modifications
+- Duplicate and modify existing queries
+- Add comments and documentation to queries
+
+### 3.5 Python Code Editor (Built-in Fully Functional IDE)
+
+**Comprehensive Python IDE Features:**
+- Syntax highlighting for Python code
+- Intelligent autocomplete for:
+  - Python keywords and built-in functions
+  - Pandas functions and methods
+  - NumPy functions and operations
+  - Scikit-learn modules and classes
+  - Matplotlib/Seaborn plotting functions
+  - Custom variables and functions
+- Line numbers and code folding
+- Error highlighting and debugging support
+- Code formatting and linting
+- Multi-file script support
+\n**Supported Python Operations:**
+- Data Cleaning: Handle missing values, remove duplicates, fix data types, standardize formats
+- Feature Engineering: Create new features, transform existing columns, encode categorical variables, scale numeric features
+- Column Transformations: Create, modify, rename, delete columns, apply mathematical operations, string manipulations
+- Custom Visualizations: Generate plots using Matplotlib/Seaborn with full customization\n- Statistical Analysis: Descriptive statistics, correlation analysis, hypothesis testing
+- Custom Machine Learning: Build and train custom ML models using scikit-learn, TensorFlow, or PyTorch\n- Data Export: Save processed data in various formats, generate custom reports
+\n**Critical Feature: Direct Data Modification**\n- All pandas DataFrame operations directly modify the actual stored dataset
+- Changes made in Python Editor immediately reflect in:
+  - Table View
+  - Data Cleaning module
+  - Visualization Studio
+  - Dashboard
+  - ML Studio
+  - Reports
+- Any operation such as:
+  - df.drop() - removes rows/columns from actual dataset
+  - df['new_column'] = ... - adds new column to actual dataset
+  - df.loc[condition, 'column'] = value - updates values in actual dataset
+  - df.merge() - merges datasets and updates storage
+  - df.groupby().agg() - creates aggregated dataset
+  - df.fillna() - fills missing values in actual dataset
+- Automatic synchronization with browser storage after code execution
+- Change history tracking for audit purposes
+\n**Code Execution Environment:**
+- Prominent'Run Code' button to execute Python code
+- Execute Python code directly in browser
+- Access to uploaded datasets as Pandas DataFrames
+- Real-time output display in dedicated output panel below code editor
+- View code output and print statements in console
+- Display generated plots and visualizations inline in output panel
+- Error messages with full traceback information displayed in output panel
+- Variable inspector to view current workspace state
+- Support for installing additional Python packages
+- Clear output option to reset output panel
+- Output panel with tabs for 'Console Output' and 'Visualizations'
+
+**Code Management:**
+- Save Python scripts with custom names and descriptions
+- Organize scripts by project and purpose
+- Rerun saved scripts on different datasets
+- Export scripts as .py files\n- Version control for script modifications\n- Share scripts via export\n- Add documentation and comments\n
+### 3.6 Auto Data Cleaning Pipeline
+
+**Dataset Selection Feature:**
+- **Dataset Selection Dropdown:**
+  - Located at the top of the Data Cleaning page
+  - Lists all datasets uploaded by the user (from Table View / Dataset Manager)
+  - Shows currently selected dataset as default
+  - Dropdown displays dataset name, row count, and column count for each dataset
+\n- **Automatic Refresh on Dataset Selection:**
+  - When user selects a dataset from dropdown:\n    - Data Cleaning interface refreshes automatically
+    - Dataset Info section updates (name, rows, columns)
+    - Selected dataset loads into Python Code Editor
+    - Preview table regenerates for selected dataset
+    - All cleaning operations apply to newly selected dataset
+
+- **Selection Persistence:**
+  - Selected dataset persists when switching between modules (e.g., Data Cleaning → Visualization → back to Data Cleaning)
+  - Selection state saved in browser session storage
+\n- **Dataset Deletion Handling:**
+  - If a dataset is deleted from project, it is automatically removed from dropdown
+  - If currently selected dataset is deleted, dropdown resets to first available dataset
+  - If no datasets remain, dropdown shows 'No datasets available'
+
+- **Error Handling:**
+  - If dataset fails to load, display error message: 'Failed to load dataset. Please try again or select another dataset.'
+  - If no datasets exist, show message: 'No datasets uploaded. Please upload a dataset first.'
+  - Provide'Retry' button for failed loads
+
+- **UI Styling:**
+  - Dropdown follows existing dark theme with purple highlights
+  - Selected dataset highlighted with purple accent
+  - Hover effects with smooth transitions
+  - Clear visual indication of active dataset
+
+**1. Handling Missing Values**
+- Remove rows with missing values
+- Remove columns with too many missing values
+- Impute numeric values using: Mean, Median, Mode, Custom value
+- Impute categorical values using: Most frequent value, 'Unknown' placeholder, Forward fill/Backward fill
+\n**2. Data Type Conversion**
+- Convert Text → Number\n- Convert Text → Date
+- Convert Number → Category
+- Convert Date → Year/Month/Day/Week\n- Convert Boolean values\n- Fix inconsistent formatting: '1,000' → 1000, date format standardization
+
+**3. Duplicate Handling**
+- Identify duplicate rows\n- Remove full duplicates
+- Remove partial duplicates using key columns
+\n**4. Outlier Treatment**
+- Detect outliers using: Z-score, IQR (Interquartile Range)\n- Remove outliers\n- Cap outliers (Winsorization)
+- Replace with median\n\n**5. Text Cleaning**
+- Trim whitespace
+- Convert to lowercase/uppercase
+- Remove special characters\n- Remove extra spaces
+- Replace unwanted characters
+- Standardize category names (e.g., 'Male', 'male', 'M' → 'Male')
+\n**6. Column Cleaning**
+- Rename columns
+- Remove special characters from headers
+- Drop unnecessary columns
+- Drop ID columns (if unique identifier)
+- Extract useful info: Split column by delimiter, Extract domain from email, Extract numbers/text\n
+**7. Date & Time Cleaning**
+- Convert strings to datetime\n- Extract: Year, Month, Quarter, Day of Week, Hour\n- Create: Time difference columns, Age from DOB
+- Standardize timezone if needed
+
+**8. Numeric Corrections**
+- Convert currency strings → number ('₹1,20,000' → 120000)
+- Fix negative values if invalid
+- Normalize/scale numbers: Min-Max scaling, Standardization
+
+**9. Categorical Cleaning**
+- Merge similar categories ('Hyderabad', 'Hyd', 'HYD' → 'Hyderabad')
+- Encode categories: Label Encoding, One-hot Encoding
+\n**10. Handling Invalid Data**
+- Remove rows with impossible values: Negative age, Zero salary
+- Validate formats (email, phone, pin code)
+- Remove corrupted data
+\n**11. Feature Engineering (Optional)**
+- Create new useful columns\n- Bucket numeric values: Age groups, Salary bands
+- Flag important patterns\n- Calculate ratios, differences
+
+**Output:**
+- Cleaning Report (downloadable as PDF or Word)\n\n### 3.7 Visualization Studio
+
+**Dataset Selection Feature:**
+- **Dataset Selection Dropdown:**
+  - Located at the top of the Visualization page
+  - Lists all datasets uploaded by the user\n  - Shows currently selected dataset as default
+  - Dropdown displays dataset name, row count, and column count for each dataset
+
+- **Automatic Refresh on Dataset Selection:**
+  - When user selects a dataset from dropdown:
+    - Visualization interface refreshes automatically
+    - Available columns update based on selected dataset
+    - Chart configuration options update to reflect new dataset schema
+    - All visualization operations apply to newly selected dataset\n
+- **Selection Persistence:**
+  - Selected dataset persists when switching between modules\n  - Selection state saved in browser session storage
+
+- **UI Styling:**
+  - Dropdown follows existing dark theme with teal/purple highlights
+  - Selected dataset highlighted with accent color
+  - Hover effects with smooth transitions
+  - Clear visual indication of active dataset
+\n**Enhanced Chart Creation Workflow:**
+- **'Choose Your Dataset' Option:**
+  - Located directly below the'Create Chart' button or section
+  - Dropdown menu displaying all available datasets in the current project
+  - Shows dataset name, row count, and column count for each option
+  - Allows users to select which dataset to use for creating the current chart
+  - Selected dataset applies only to the chart being created, not globally
+  - Enables working with multiple datasets simultaneously in the same visualization workspace
+  - Default selection is the currently active dataset from the top-level dataset selector
+
+- **Multi-Dataset Chart Creation:**
+  - Users can create charts from different datasets without switching the global dataset selection
+  - Each chart retains its source dataset information
+  - Chart editing preserves the original dataset selection
+  - Clear visual indicator showing which dataset each chart is based on
+
+**Chart Types:**
+\n*Bar/Column Charts:*
+- Bar Chart\n- Column Chart
+- Stacked Bar\n- Stacked Column
+- 100% Stacked Bar
+- 100% Stacked Column\n- Grouped Bar
+- Multi-Series Bar
+\n*Line & Area Charts:*
+- Line Chart
+- Multi-Line Chart
+- Area Chart
+- Stacked Area
+- Spline/Smoothed Line
+\n*Pie/Donut Charts:*
+- Pie Chart
+- Donut Chart
+- Ring Chart
+- Multi-level Donut
+\n*Distribution Charts:*
+- Histogram
+- Box Plot
+- Violin Plot
+\n*Scatter/Bubble Charts:*
+- Scatter Plot
+- Bubble Chart
+- Scatter with Regression Line
+\n*Maps:*
+- Filled Map
+- Bubble Map
+- Geo Choropleth
+
+*Advanced BI Charts:*
+- TreeMap
+- Funnel Chart
+- **KPI Card (New)**
+- Gauge Chart
+- Heatmap
+- Matrix/Pivot Grid
+
+**KPI Card Chart Type (New Feature):**
+- **Purpose**: Display single numeric values prominently for key performance indicators
+- **Configuration Options**:
+  - Select numeric column to display (e.g., Total Sales, Total Students, Revenue, Count)
+  - Choose aggregation function: Sum, Count, Average, Min, Max, Median\n  - Add custom label/title for the KPI (e.g., 'Total Sales', 'Total Students', 'Revenue This Month')
+  - Optional comparison value (e.g., previous period, target value)
+  - Optional trend indicator (up/down arrow with percentage change)
+  - Optional icon selection from icon library
+- **Visual Styling**:
+  - Large, bold numeric value display
+  - Customizable background color and text color
+  - Optional gradient background
+  - Rounded corners with shadow effects
+  - Compact card layout suitable for dashboard placement
+  - Responsive sizing based on container dimensions
+- **Example Use Cases**:
+  - Total Sales: Sum of sales column
+  - Total Students: Count of student records
+  - Average Score: Average of score column
+  - Total Revenue: Sum of revenue column
+  - Active Users: Count of active user records
+- **Reference Image**: 1711092875323.png shows KPI card examples with proper value display
+
+**Chart Customization Options:**
+- Chart type selection\n- X-axis column selection
+- Y-axis column selection
+- Grouping column (optional)
+- Custom color selection: Users can choose individual colors for chart elements using color picker or enter custom HEX color codes
+- Predefined color palette options for quick selection
+- Chart title\n- Legend options
+- Data labels toggle (show/hide value labels on chart)
+- Chart dimensions (width/height)
+- Theme selection (light/dark)\n- Unlimited chart creation capability
+
+**Numerical Column Filter Options:**
+- Sum aggregation
+- Count aggregation\n- Min aggregation
+- Max aggregation\n- Mode aggregation
+- Median aggregation
+- Average aggregation
+\n**Chart Management Features:**
+- Edit chart: Modify chart configuration after creation
+- Delete chart: Remove unwanted charts
+- Rename chart: Change chart title and name
+\n**Column-Based Filtering:**
+- Filter data by any column before chart generation
+- Date column filtering: Filter by specific year, month, quarter, or date range
+- Categorical column filtering: Select specific categories to include/exclude
+- Numeric column filtering: Set range filters (min/max values)
+\n### 3.8 Dashboard Builder (Power BI-Inspired Advanced Interface)
+
+**Enhanced Dashboard Creation Features:**
+- **Unlimited Chart Addition:** Add unlimited charts to dashboard from Visualization Studio
+- **Advanced Layout Controls:**
+  - Drag-and-drop chart positioning with pixel-perfect placement
+  - **User-Controlled Chart Resizing**: Users can freely increase or decrease chart size by dragging edges or corners
+  - Resize handles appear on all four corners and edges of each chart
+  - Real-time size preview while dragging
+  - Minimum and maximum size constraints to prevent unusable dimensions
+  - Snap-to-grid option for aligned resizing (optional, can be toggled on/off)
+  - Freely arrange and reorder charts with collision detection
+  - Grid-based layout with customizable grid size (8px, 16px, 24px)\n  - Freeform layout mode for unrestricted positioning
+  - Auto-align tools (align left, center, right, top, middle, bottom)
+  - Distribute charts evenly (horizontal/vertical spacing)
+  - Z-index control for overlapping elements
+  - Lock chart position and size to prevent accidental movement or resizing
+\n- **Dashboard Canvas Options:**
+  - Multiple canvas size presets (1920x1080, 1366x768, custom dimensions)
+  - Zoom in/out controls (50%, 75%, 100%, 125%, 150%, fit to screen)
+  - Pan across large dashboards with mouse drag or mini-map navigator
+  - Ruler guides and alignment lines for precise positioning
+  - Background color/image customization
+  - Grid visibility toggle
+\n- **Chart Container Enhancements:**
+  - Individual chart borders with customizable color and thickness
+  - Chart background color customization
+  - Chart shadow effects (none, small, medium, large)
+  - Chart corner radius adjustment (sharp, rounded, circular)
+  - Chart padding and margin controls
+  - Chart title positioning (top, bottom, left, right, center)
+\n**Advanced Dashboard Filtering & Interactivity:**
+- **Global Filter Panel:**
+  - Collapsible filter sidebar with organized filter groups
+  - Column-based filter panel: Add filters for any data column
+  - Date column filters:\n    - Year selector with multi-select\n    - Month selector with multi-select
+    - Quarter selector (Q1, Q2, Q3, Q4)
+    - Custom date range picker with calendar interface
+    - Relative date filters (Last 7 days, Last 30 days, This month, This year)
+  - Categorical filters:
+    - Multi-select dropdown with search functionality
+    - Select all/deselect all options
+    - Hierarchical category filters for nested categories
+  - Numeric filters:\n    - Range sliders with min/max value display
+    - Input fields for precise min/max values
+    - Predefined range options (Top 10, Bottom 10, Above average, Below average)\n  - Apply filters globally: All charts in dashboard update based on selected filters
+  - Filter dependencies: Configure cascading filters where one filter affects another
+  - Clear filters option: Reset all filters to default state with single click
+  - Save filter presets for quick access to common filter combinations
+
+- **Cross-Chart Interactivity:**
+  - Click on any chart element to filter other charts dynamically
+  - Drill-down capabilities: Click on chart to view detailed breakdown
+  - Drill-through to related dashboards or detailed views
+  - Highlight related data across multiple charts on hover
+  - Breadcrumb navigation showing current filter path
+\n**Dashboard Management:**
+- **Dashboard Organization:**
+  - Create multiple dashboards within a project
+  - Dashboard tabs for easy navigation between dashboards
+  - Dashboard grouping by category or purpose
+  - Dashboard search and filter functionality
+\n- **Dashboard Actions:**
+  - Edit dashboard: Modify layout, filters, and chart configurations
+  - Delete dashboard: Remove entire dashboard with confirmation
+  - Rename dashboard: Change dashboard title and description
+  - Duplicate dashboard: Create a copy of existing dashboard
+  - Share dashboard: Generate shareable link or export configuration
+
+- **Dashboard Templates:**
+  - Pre-built dashboard templates for common use cases (Sales, Marketing, Finance, HR)
+  - Save custom dashboards as templates for reuse
+  - Template gallery with preview thumbnails
+\n**Export & Sharing Options:**
+- **Export Formats:**
+  - Export as high-resolution PNG image (with custom DPI settings)
+  - Export as PDF document (single page or multi-page)
+  - Export as interactive HTML file (with embedded data and filters)
+  - Export as JSON configuration file for backup or sharing
+  - Export as PowerPoint presentation (one chart per slide or dashboard snapshot)
+
+- **Sharing Options:**
+  - Generate shareable link with view-only access
+  - Embed dashboard in external websites via iframe code
+  - Schedule automated email reports with dashboard snapshots
+\n**Dashboard Performance Optimization:**
+- Lazy loading for charts outside viewport
+- Data caching to reduce redundant calculations
+- Progressive rendering for large datasets
+- Performance metrics display (load time, render time)\n\n**Layout Style:**
+- Power BI/Tableau-inspired professional grid layout
+- Flexible arrangement capabilities with visual feedback
+- Responsive design adapting to different screen sizes
+- Dark and light theme support with smooth transitions
+
+### 3.9 Machine Learning Studio (Advanced Model Visualization & Comparison)
+
+**Enhanced ML Model Visualization Interface:**
+- **Multi-Data Type Visualization Panel (Right-Side Panel):**
+  - Dedicated right-side panel displaying different data types and visualizations simultaneously
+  - **Data Type Categories:**
+    - Numerical Data Visualization:\n      - Distribution histograms for numeric features
+      - Box plots showing quartiles and outliers
+      - Correlation heatmaps between numeric variables
+      - Scatter plots for feature relationships
+    - Categorical Data Visualization:
+      - Bar charts showing category frequencies
+      - Pie charts for category proportions
+      - Stacked bar charts for multi-category comparisons
+    - Time-Series Data Visualization:
+      - Line charts showing trends over time
+      - Seasonal decomposition plots
+      - Moving average overlays
+    - Target Variable Analysis:
+      - Class distribution for classification problems
+      - Target variable distribution for regression\n      - Imbalance ratio indicators
+  - **Interactive Data Exploration:**
+    - Click on any visualization to drill down into details
+    - Hover tooltips showing exact values and statistics
+    - Zoom and pan capabilities for detailed inspection
+    - Filter data by selecting regions in visualizations
+  - **Data Quality Indicators:**
+    - Missing value percentage per feature
+    - Outlier detection highlights
+    - Data type consistency warnings
+    - Feature importance preview
+\n**Parallel Algorithm Execution:**
+- Run multiple ML algorithms simultaneously
+- Compare performance across all algorithms in real-time
+- Automatic resource management for parallel processing
+- Progress indicators for each algorithm training
+\n**Regression Models:**
+- Linear Regression
+- Random Forest Regressor
+- Gradient Boosting\n- XGBoost
+- Ridge Regression
+- Lasso Regression
+- ElasticNet\n- Support Vector Regression (SVR)
+
+**Classification Models:**
+- Logistic Regression
+- Random Forest Classifier
+- Decision Tree\n- K-Nearest Neighbors (KNN)
+- Support Vector Machine (SVM)
+- Naive Bayes
+- Gradient Boosting Classifier
+- XGBoost Classifier
+- AdaBoost\n\n**Intelligent ML Recommendation Engine (USP):**
+- Analyzes dataset characteristics:\n  - Target variable type (continuous, binary, multi-class)
+  - Class imbalance ratio
+  - Number of features
+  - Sample size
+  - Categorical-to-numeric feature ratio
+  - Missing value percentage
+  - Feature correlation patterns
+- Suggests most suitable algorithms based on analysis
+- Provides reasoning for each recommendation
+- Ranks algorithms by expected performance
+- Warns about potential issues (e.g., overfitting risk, insufficient data)
+
+**ML Pipeline Features:**
+- Automatic train/test split
+- Full training pipeline automation
+- Hyperparameter tuning\n- Model comparison\n- Best model identification
+- Cross-validation support
+\n**Algorithm Execution Details Panel (New Feature):**
+\nWhen user clicks'Use This Algorithm' button for any recommended or available algorithm, the system displays a comprehensive execution details panel showing:
+\n**1. Pre-Processing Operations Display:**
+- **Data Preparation Steps:**
+  - Train-test split ratio (e.g., 80% training, 20% testing)
+  - Number of samples in training set
+  - Number of samples in test set
+  - Feature scaling method applied (StandardScaler, MinMaxScaler, etc.)
+  - Encoding methods for categorical variables (One-Hot, Label Encoding)\n  - Missing value handling strategy applied
+  - Feature selection techniques used (if any)
+\n**2. Real-Time Training Progress:**
+- **Live Training Metrics:**
+  - Progress bar showing training completion percentage
+  - Current epoch/iteration number (for iterative algorithms)
+  - Training time elapsed
+  - Estimated time remaining
+  - Real-time loss/error values during training
+  - Convergence status indicators
+
+**3. Algorithm-Specific Operations:**
+- **For Each Algorithm, Display:**
+  - Algorithm name and type (Regression/Classification)
+  - Hyperparameters being used (default or tuned values)
+  - Model architecture details (for ensemble methods, show number of trees, depth, etc.)
+  - Optimization method (Gradient Descent, Adam, etc.)\n  - Regularization parameters (if applicable)
+  - Cross-validation folds (if enabled)
+\n**4. Step-by-Step Execution Log:**
+- **Detailed Operation Timeline:**
+  - Step1: Data loading and validation
+  - Step 2: Feature preprocessing (scaling, encoding)
+  - Step 3: Train-test split execution
+  - Step 4: Model initialization with hyperparameters
+  - Step 5: Training process start
+  - Step 6: Training iterations with loss values
+  - Step 7: Model convergence achieved
+  - Step 8: Predictions on test set
+  - Step 9: Performance metrics calculation
+  - Step 10: Model evaluation complete
+
+**5. Output Results Display:**
+- **Comprehensive Results Section:**
+  - **Prediction Results:**
+    - Sample predictions vs actual values (first 10-20 rows)
+    - Prediction distribution visualization
+    - Residual analysis (for regression)\n    - Confusion matrix (for classification)
+  \n  - **Performance Metrics:**
+    - Accuracy (for classification)
+    - Precision, Recall, F1-Score (for classification)
+    - ROC-AUC score (for classification)
+    - RMSE, MAE, R² Score (for regression)
+    - Mean Absolute Percentage Error (MAPE)\n    - Training vs Testing performance comparison
+  
+  - **Feature Importance:**
+    - Bar chart showing top 10 most important features
+    - Feature importance scores table
+    - Feature contribution analysis
+  
+  - **Model Insights:**
+    - Overfitting/Underfitting indicators
+    - Model complexity metrics
+    - Generalization capability assessment
+    - Recommendations for model improvement
+
+**6. Comprehensive Reports Generation:**
+- **Automatic Report Creation:**
+  - **Training Report (PDF/Word):**
+    - Executive summary of model performance
+    - Dataset characteristics and preprocessing steps
+    - Algorithm selection rationale
+    - Hyperparameter configuration details
+    - Training process timeline and logs
+    - Performance metrics with visualizations
+    - Confusion matrix (classification) or residual plots (regression)
+    - ROC curve and AUC score (classification)
+    - Feature importance rankings
+    - Model comparison table (if multiple algorithms trained)
+    - Recommendations and next steps
+  
+  - **Prediction Report (PDF/Word):**
+    - Sample predictions table (actual vs predicted)
+    - Prediction accuracy analysis
+    - Error distribution analysis
+    - Outlier predictions identification
+    - Confidence intervals (if applicable)
+  
+  - **Visual Performance Report (PDF/Word):**
+    - All performance graphs embedded:\n      - Confusion Matrix
+      - ROC Curve
+      - Precision-Recall Curve
+      - Feature Importance Plot
+      - Actual vs Predicted Plot
+      - Residual Plot
+      - Learning Curve
+      - Accuracy Comparison Chart
+    - Graph interpretations and insights
+\n**7. Interactive Execution Panel UI:**
+- **Panel Layout:**
+  - Left section: Real-time execution log with scrollable timeline
+  - Center section: Live training metrics and progress visualization
+  - Right section: Output results and performance metrics
+  - Bottom section: Download buttons for reports and trained model
+
+- **Visual Indicators:**
+  - Green checkmarks for completed steps
+  - Yellow spinner for ongoing operations
+  - Red error indicators for failed steps
+  - Progress bars for training iterations
+  - Real-time metric graphs updating during training
+
+- **User Controls:**
+  - Pause/Resume training button (for long-running models)
+  - Stop training button (with confirmation)
+  - Expand/Collapse sections for detailed view
+  - Download individual reports or all reports as ZIP
+  - Save execution log as text file
+  - Export results to CSV/Excel
+
+**8. Post-Execution Actions:**
+- **After Training Completes:**
+  - Display success notification with overall performance summary
+  - Highlight best performing model (if multiple algorithms trained)
+  - Provide quick action buttons:\n    - Download Trained Model (.pkl file)
+    - Download All Reports (PDF/Word)
+    - View Detailed Performance Analysis
+    - Compare with Other Models
+    - Retrain with Different Hyperparameters
+    - Use Model for Predictions on New Data
+\n**Performance Analysis Graphs (Generated Separately for Each Algorithm):**
+- Confusion Matrix (for classification)
+- ROC Curve with AUC score (for classification)
+- Precision-Recall Curve (for classification)\n- Feature Importance Plot\n- Regression Error Plot (Actual vs Predicted)
+- Residual Plot (for regression)
+- Learning Curve\n- Accuracy Comparison Chart (across all algorithms)
+
+**Evaluation Metrics:**
+- Accuracy\n- Precision
+- Recall
+- F1-Score
+- ROC-AUC
+- RMSE (Root Mean Square Error)
+- MAE (Mean Absolute Error)
+- R² Score
+- Confusion Matrix values
+\n**Download Options:**
+- Trained model file (pkl or JSON format) for each algorithm
+- ML reportdocument with all performance graphs (PDF or Word format only)
+- Training execution log (text file)
+- Prediction results (CSV/Excel)\n- Feature importance data (CSV/Excel)
+- Performance comparison report (PDF/Word)
+\n### 3.10 Video Tutorial & Demonstration Module
+
+**Video Display Features:**
+- Embedded video player within the platform
+- Support for multiple video formats (MP4, WebM, etc.)
+- Video controls: Play, pause, seek, volume adjustment, fullscreen mode
+- Video quality selection (if multiple resolutions available)
+- Playback speed control (0.5x, 1x, 1.5x, 2x)\n\n**Video Content Categories:**
+- Platform overview and navigation tutorials
+- Data upload and management guides
+- Data cleaning demonstrations
+- Visualization creation tutorials
+- Dashboard building walkthroughs
+- Machine learning workflow demonstrations
+- SQL and Python editor usage guides
+
+**Video Management:**
+- Video library organized by category and topic
+- Search functionality to find specific tutorials
+- Bookmark favorite videos for quick access
+- Video viewing history tracking
+- Resume playback from last watched position
+- Related video suggestions\n
+**Video Integration:**
+- Context-sensitive video help: Show relevant tutorial videos based on current module
+- Video thumbnails with titles and descriptions
+- Video duration display
+- View count and rating indicators
+\n### 3.11 Home Page Workspace Statistics (Enhanced)
+
+**Your Workspace Section:**
+- **Purpose**: Display comprehensive statistics about user's current project activity and progress
+- **Statistics Cards** (Reference: image.png showing workspace statistics):
+  - **Total Projects Done**: Count of all saved projects in Previous Projects section
+  - **Total Charts Created**: Count of all charts created across all projects
+  - **ML Models Trained**: Count of all machine learning models trained across all projects
+  - **Rows in Dataset**: Total number of rows in currently active dataset
+  - **Columns in Dataset**: Total number of columns in currently active dataset
+  - **Dataset Name**: Display name of currently active dataset
+\n- **Card Design**:
+  - Large, bold numeric values prominently displayed
+  - Clear descriptive labels below each number
+  - Dark background with purple/teal accent colors
+  - Consistent card sizing and spacing
+  - Hover effects with subtle glow
+  - Clickable cards linking to relevant sections (e.g., click'Charts Created' to view charts)
+
+- **Layout**:
+  - Horizontal row of statistic cards
+  - Responsive grid layout adapting to screen size
+  - Positioned prominently on home page below welcome message
+  - Clear visual separation from other home page sections
+
+- **Real-Time Updates**:
+  - Statistics update automatically when user creates new charts, trains models, or saves projects
+  - Smooth number transitions when values change
+  - Refresh on page load to ensure accuracy
+\n### 3.12 Comprehensive Report Module (New Feature)
+
+**Purpose:**
+The Report tab provides a centralized location for users to download a complete, consolidated report documenting all operations performed across the entire platform, including Data Cleaning, Visualization, Dashboard, ML Studio, SQL Editor, and Python Editor activities.
+
+**Report Generation Features:**
+\n**1. Complete Project Report:**
+- **'Download Complete Report' Button:**
+  - Prominently displayed button in Report tab with distinctive styling (neon green background with white text)
+  - Generates comprehensive report covering all platform activities in current project
+  - Available in PDF and Word formats only
+\n**2. Report Content Sections:**
+
+**A. Executive Summary:**
+- Project name and description
+- Project creation date and last modified date
+- Total datasets uploaded (count and names)
+- Overall project statistics:\n  - Total rows and columns across all datasets
+  - Total charts created
+  - Total dashboards created
+  - Total ML models trained
+  - Total SQL queries executed
+  - Total Python scripts executed
+\n**B. Data Upload & Management Section:**
+- List of all uploaded datasets with details:
+  - Dataset name\n  - File format\n  - Upload date and time
+  - Number of rows and columns
+  - Data types summary
+  - Sample data preview (first 10 rows)
+- Data modeling operations performed:
+  - Tables joined\n  - Join types used
+  - Join keys and conditions
+  - Resulting dataset details
+
+**C. Data Cleaning Operations Section:**
+- Detailed log of all data cleaning operations performed:\n  - Missing value handling:\n    - Columns with missing values
+    - Imputation methods used
+    - Rows/columns removed
+  - Data type conversions:
+    - Original and new data types
+    - Columns affected\n  - Duplicate handling:
+    - Number of duplicates found and removed
+  - Outlier treatment:
+    - Detection method used
+    - Outliers identified and handled
+  - Text cleaning operations:
+    - Columns cleaned\n    - Transformations applied
+  - Column operations:
+    - Columns renamed, dropped, or created
+    - Feature engineering steps
+  - Date/time transformations:\n    - Date columns processed
+    - Extracted features
+  - Categorical encoding:
+    - Encoding methods used
+    - Columns encoded
+- Before and after dataset statistics comparison
+- Data quality improvement metrics
+\n**D. SQL Editor Operations Section:**
+- Complete history of SQL queries executed:
+  - Query text with syntax highlighting
+  - Execution timestamp
+  - Query execution time
+  - Number of rows affected/returned
+  - Query results summary (for SELECT queries)
+  - Data modification operations (UPDATE, DELETE, INSERT, ALTER):
+    - Tables modified
+    - Columns affected
+    - Number of rows modified
+- Saved SQL queries with descriptions
+- Query performance metrics
+
+**E. Python Editor Operations Section:**
+- Complete history of Python scripts executed:
+  - Script code with syntax highlighting
+  - Execution timestamp
+  - Script execution time
+  - Console output and print statements
+  - Generated visualizations (embedded as images)
+  - Data transformations performed:\n    - DataFrame operations
+    - New columns created
+    - Rows modified or filtered
+    - Aggregations and groupings
+- Saved Python scripts with descriptions
+- Script performance metrics
+
+**F. Visualization Section:**
+- Complete catalog of all charts created:
+  - Chart name and type
+  - Source dataset
+  - Chart configuration details:\n    - X-axis and Y-axis columns
+    - Aggregation functions used
+    - Filters applied
+    - Color scheme\n  - High-resolution chart image embedded
+  - Chart creation date and last modified date
+- Chart performance and insights:\n  - Data points visualized
+  - Key trends identified
+\n**G. Dashboard Section:**\n- Complete catalog of all dashboards created:
+  - Dashboard name and description
+  - Dashboard layout screenshot (high-resolution)
+  - List of charts included in dashboard
+  - Global filters applied:\n    - Filter types and values
+    - Date ranges
+  - Dashboard creation date and last modified date
+  - Dashboard interactivity features used
+\n**H. Machine Learning Section:**
+- Complete ML training history:
+  - For each ML model trained:
+    - Algorithm name and type (Regression/Classification)
+    - Dataset used for training
+    - Target variable\n    - Features used
+    - Train-test split ratio
+    - Hyperparameters configured
+    - Training duration
+    - Performance metrics:\n      - Accuracy, Precision, Recall, F1-Score (classification)
+      - RMSE, MAE, R² Score (regression)
+    - Confusion matrix (classification)
+    - Feature importance rankings
+    - All performance graphs embedded:\n      - ROC Curve
+      - Precision-Recall Curve
+      - Actual vs Predicted Plot
+      - Residual Plot
+      - Learning Curve
+    - Model insights and recommendations
+    - Training execution log
+- Model comparison table (if multiple models trained):
+  - Side-by-side performance comparison
+  - Best model identification
+\n**I. Project Timeline:**
+- Chronological timeline of all operations performed:\n  - Data uploads\n  - Data cleaning operations
+  - SQL queries executed
+  - Python scripts executed\n  - Charts created
+  - Dashboards created
+  - ML models trained
+- Visual timeline graph showing activity distribution
+
+**J. Recommendations & Next Steps:**
+- Data quality improvement suggestions
+- Additional analysis recommendations
+- Model optimization suggestions
+- Feature engineering ideas
+\n**3. Report Customization Options:**
+- **Section Selection:**
+  - Checkboxes to include/exclude specific sections
+  - Select all/deselect all option
+  - Default: All sections included
+\n- **Detail Level:**
+  - Summary view: High-level overview only
+  - Standard view: Moderate detail (default)
+  - Detailed view: Complete information with all logs and outputs
+
+- **Date Range Filter:**
+  - Filter operations by date range
+  - Include only operations performed within selected period
+
+**4. Report Generation Process:**
+- **Progress Indicator:**
+  - Progress bar showing report generation status
+  - Estimated time remaining
+  - Current section being processed
+
+- **Report Preview:**
+  - Option to preview report before downloading
+  - Scrollable preview window
+  - Edit section inclusion before final download
+
+**5. Report Download Options:**
+- **Format Selection:**
+  - PDF format (default)
+  - Word format (.docx)
+\n- **Download Actions:**
+  - 'Download as PDF' button
+  - 'Download as Word' button
+  - 'Email Report' option (if email functionality available)
+  - 'Save to Browser Storage' option for quick access
+
+**6. Report Management:**
+- **Report History:**
+  - List of previously generated reports
+  - Report generation date and time
+  - Report configuration (sections included, detail level)
+  - Re-download previous reports
+  - Delete old reports
+
+- **Report Templates:**
+  - Save current report configuration as template
+  - Load saved templates for quick report generation
+  - Pre-built templates for common report types:\n    - Executive Summary Report
+    - Technical Analysis Report
+    - ML Performance Report
+    - Data Quality Report
+\n**7. Report Styling:**
+- **Professional Document Design:**
+  - Cover page with project name and logo
+  - Table of contents with page numbers
+  - Consistent header and footer
+  - Page numbering
+  - Section dividers with navy/teal accent colors
+  - Professional typography (Inter or Roboto font family)
+  - High-quality embedded images and charts
+  - Color-coded sections for easy navigation
+  - Syntax-highlighted code blocks for SQL and Python
+
+**8. Report Accessibility:**
+- **Report Tab Location:**
+  - Accessible from left sidebar navigation (positioned after ML Studio)
+  - Quick access button in top navigation bar
+  - Context-sensitive report generation from individual modules
+\n- **Report Sharing:**
+  - Generate shareable link for report preview
+  - Export report configuration for sharing with team members
+\n## 4. Application Pages & Navigation Structure
+
+**Left Sidebar Navigation (Workflow Order):**
+1. Home
+2. Upload Data
+3. Table View
+4. Data Cleaning
+5. Visualization
+6. Dashboard
+7. ML Studio
+8. SQL Editor
+9. Report\n10. Video Tutorials
+11. Previous Projects
+\n**Additional Pages:**
+- Previous Projects View Page (read-only visualization viewer with reopen and delete options)
+- Project Management Page (folder organization, dataset management)\n- ML Recommendation Page\n- Video Library Page (organized tutorials and demonstrations)
+- ML Execution Details Page (showing algorithm operations, outputs, and reports)
+- Comprehensive Report Generation Page (with section selection and customization options)
+\n## 5. Report Download Options (Updated)
+
+**Supported Export Formats:**
+- **PDF Format**: Download reports as PDF documents
+- **Word Format**: Download reports as Word documents (.docx)
+\n**Export Options Removed:**
+- No longer support export as PNG, Excel, PowerPoint, or other formats
+- Only PDF and Word formats available for all report downloads
+
+**Applicable Reports:**
+- Data Cleaning Reports: PDF or Word only
+- ML Performance Reports: PDF or Word only\n- ML Training Reports: PDF or Word only
+- ML Prediction Reports: PDF or Word only
+- ML Visual Performance Reports: PDF or Word only
+- Dashboard Export: PDF or Word only
+- Visualization Reports: PDF or Word only
+- Project Summary Reports: PDF or Word only
+- **Complete Project Report (New)**: PDF or Word only
+\n## 6. Design Style\n
+**UI Framework:**
+- TailwindCSS or Material UI implementation
+\n**Color Scheme:**
+- Primary Colors: Navy blue (#1e3a5f, #2c5282) for headers, sidebar, and primary buttons
+- Secondary Colors: Teal (#14b8a6, #0d9488) for accents, highlights, and interactive elements
+- Background Colors: Charcoal (#2d3748, #1a202c) for dark mode backgrounds, White (#ffffff, #f7fafc) for light mode
+- Accent Colors: Neon cyan (#06b6d4), neon green (#10b981) for call-to-action buttons, notifications, and data highlights
+- Purple Highlights: Purple (#9333ea, #a855f7) for dataset selection dropdown and interactive elements in Data Cleaning and Visualization modules
+- Text Colors: White/light gray for dark backgrounds, dark gray/black for light backgrounds
+
+**Visual Design Elements:**
+- Clean, modern data-science aesthetic with professional appearance
+- Application Name Background: Navy-to-teal gradient or textured background for'InsightFlow AI' branding in header
+- Glass-effect panels with subtle transparency and backdrop blur for cards and modals
+- Smooth transitions and micro-animations for interactions
+- Collapsible sidebar navigation with icons and labels
+- PowerBI-inspired modern interface aesthetic with data-focused layout
+
+**Theme Options:**
+- Light mode: White backgrounds with navy/teal accents
+- Dark mode: Charcoal backgrounds with neon cyan/green accents and purple highlights
+\n**Typography & Spacing:**
+- Clear, readable sans-serif fonts (Inter or Roboto family)
+- Generous padding and consistent spacing hierarchy
+- Proper visual separation between functional sections
+- Bold headings with navy or teal colors
+\n**Chart Styling:**
+- Vibrant, distinguishable color palettes for data visualization
+- Consistent styling across all chart types\n- Interactive hover states and tooltips
+- User-customizable colors for personalized data representation
+- Teal and neon accents for highlighted data points
+- KPI cards with large, bold numeric displays and customizable backgrounds
+
+**Code Editor Styling:**
+- Monospace font (Fira Code or JetBrains Mono)
+- Syntax highlighting with distinct colors: keywords in teal, strings in neon green, functions in cyan\n- Dark theme optimized for code readability with charcoal background
+- Line numbers in muted gray\n\n**Button & Interactive Elements:**
+- Primary buttons: Teal background with white text
+- Secondary buttons: Navy outline with teal text
+- Hover effects: Neon cyan glow or subtle scale animation
+- Disabled state: Muted gray with reduced opacity
+- Prominent'Run Code' button in Python Editor with neon green accent
+- 'Save Current Project' button with distinctive styling (neon green background with white text)
+- Dataset selection dropdown with purple highlight for selected item in both Data Cleaning and Visualization modules\n- 'Choose Your Dataset' dropdown in Visualization module with consistent purple highlight styling
+- Chart resize handles with teal accent color appearing on hover
+- 'Use This Algorithm' button with prominent styling (purple background with white text)
+- **'Download Complete Report' button with distinctive styling (neon green background with white text)**
+
+**Navigation Sidebar:**
+- Navy background with white/light gray text
+- Active tab: Teal highlight bar on left edge with neon cyan glow
+- Icons: Minimalist line icons in white/teal
+- Collapsible with smooth animation
+- 'Previous Projects' navigation item positioned at end of sidebar with archive icon
+- 'Report' navigation item withdocument icon positioned after ML Studio
+\n**Video Player Styling:**
+- Modern, minimalist video player controls\n- Teal accent color for play button and progress bar
+- Dark overlay for controls with smooth fade-in/out
+- Fullscreen mode with immersive experience
+\n**Dialog & Modal Styling:**
+- Workspace reset confirmation dialog with glass-effect background
+- Clear, prominent action buttons with color-coded meanings (green for confirm, gray for cancel)
+- Delete confirmation dialogs with warning icon and red accent for destructive actions
+\n**Dataset Selection Dropdown Styling:**
+- Dark theme background with purple highlights
+- Selected dataset highlighted with purple accent (#9333ea)
+- Hover effects with smooth purple glow transition
+- Clear visual indication of active dataset with purple border
+- Dropdown items show dataset name, row count, and column count with proper spacing
+- Consistent styling across Data Cleaning and Visualization modules
+-'Choose Your Dataset' dropdown in chart creation follows same styling pattern
+
+**Workspace Statistics Cards Styling:**
+- Large, bold numeric values in white or neon cyan
+- Dark charcoal background with subtle gradient
+- Purple/teal accent borders\n- Rounded corners with medium shadow
+- Hover effect with neon glow and slight scale increase
+- Consistent card dimensions and spacing
+- Clear, readable labels in light gray
+
+**ML Execution Details Panel Styling:**
+- Full-width panel with dark charcoal background
+- Three-column layout: Execution log (left), Training metrics (center), Results (right)
+- Progress bars with teal accent color
+- Green checkmarks for completed steps, yellow spinners for ongoing operations
+- Real-time metric graphs with neon cyan/green line colors
+- Collapsible sections with smooth animations
+- Download buttons with teal background and white text
+- Error messages with red accent and warning icons
+
+**Report Module Styling:**
+- Clean, professional document-style interface
+- Section selection checkboxes with purple accent when selected
+- Report preview panel with scrollable content
+- Progress bar with teal accent during report generation
+- Download buttons with neon green background and white text
+- Report history cards with navy background and teal borders
+- Template cards with hover effects and purple highlights
+\n## 7. Reference Images
+
+-2.power-bi-desktop.png: Reference for advanced dashboard creation interface with Power BI-inspired layout, filters panel, and visualization options
+- images.jpg: Reference for visual data modeling interface showing table relationships and join configurations
+- download.jpg: Additional reference for data modeling canvas with multiple table connections and relationship management
+- 1711092875323.png: Reference for KPI card examples showing proper numeric value display with labels (Total Sales, Total Profit, Total Unit Sold, No. of Countries, Cost of Goods Sold)
+- image.png: Reference for Home page workspace statistics showing project metrics (Rows in Dataset, Charts Created, ML Models Trained) with proper card layout and value display
